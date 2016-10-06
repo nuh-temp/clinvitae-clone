@@ -1,0 +1,2 @@
+<input type="text" ng-model="ctrl.term"/>
+<a ng-click="ctrl.search()" href="#">Search</a>
