@@ -30,7 +30,7 @@ class Cache(object):
 	@classmethod
 	def Suggest(cls, key):
 		if cls.storage is None:
-			cls.Init()		
+			cls.Init()
 
 		result = set()
 		key = key.upper()
@@ -38,13 +38,14 @@ class Cache(object):
 			if gene.startswith(key):
 				result.add(gene)
 
+		logging.info('result: %s', result)
 		return [g for g in sorted(result)]
 
 
 	@classmethod
 	def Variants(cls, gene):
 		if cls.storage is None:
-			cls.Init()		
+			cls.Init()
 
 		return cls.storage.get(gene)
 
@@ -63,12 +64,14 @@ class Suggest(webapp2.RequestHandler):
 
 	def get(self):
 		genes = self.request.get('genes')
+		logging.info('Suggest: genes=%s', genes)
 		self.response.content_type = 'application/json'
 		if not genes:
 			self.response.write('[]')
 			return
 
 		result = Cache.Suggest(genes)
+		logging.info('Suggest: result=%s', result)
 		self.response.write(json.dumps(result))
 
 
@@ -84,6 +87,6 @@ class Variants(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/api/v1/suggest', Suggest),
     ('/api/v1/variants', Variants),
-    ('/', Index),
+    ('/.*', Index),
 ], debug=True)
 
