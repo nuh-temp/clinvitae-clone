@@ -12,7 +12,7 @@ class Cache(object):
     _storage = None
     _header = None
 
-    _DATA_FILENAME = 'variant_results.tsv'
+    _DATA_FILENAME = 'data/variant_results.tsv'
 
     @classmethod
     def Init(cls):
