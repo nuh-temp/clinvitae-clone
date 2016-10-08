@@ -1,3 +1,13 @@
 <div>
-    results {{geneCtrl.gene}}
+    <div ng-include="'/st/index.ng'"></div>
+    <table>
+    <tr>
+        <th ng-repeat="title in ctrl.header">{{title}}</th>
+    </tr>
+    <tr ng-repeat="variants in ctrl.variants">
+        <td ng-repeat="value in variants track by $index"">
+            {{value}}
+        </td>
+    </tr>
+    </table>
 <div>
